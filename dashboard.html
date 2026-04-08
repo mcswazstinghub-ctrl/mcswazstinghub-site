@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <style>
+    body {
+      background: #020617;
+      color: white;
+      font-family: Arial;
+      text-align: center;
+    }
+    textarea {
+      width: 80%;
+      height: 100px;
+      margin: 10px;
+    }
+    button {
+      padding: 10px;
+      background: #22c55e;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>📊 Mcswazsting Hub Dashboard</h1>
+
+<h2>AI Business Assistant</h2>
+
+<textarea id="request" placeholder="Enter business task..."></textarea><br>
+<button onclick="sendRequest()">Run AI</button>
+
+<h3 id="response"></h3>
+
+<script>
+function sendRequest(){
+  fetch("/ai-service", {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({
+      request: request.value
+    })
+  }).then(res=>res.json()).then(data=>{
+    response.innerText = data.response;
+  });
+}
+</script>
+
+</body>
+</html>
