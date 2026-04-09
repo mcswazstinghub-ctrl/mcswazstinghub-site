@@ -1,51 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Dashboard</title>
-  <style>
-    body {
-      background: #020617;
-      color: white;
-      font-family: Arial;
-      text-align: center;
-    }
-    textarea {
-      width: 80%;
-      height: 100px;
-      margin: 10px;
-    }
-    button {
-      padding: 10px;
-      background: #22c55e;
-      border: none;
-      cursor: pointer;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mcswazsting Hub Dashboard</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="dashboard">
+  <aside class="sidebar">
+    <h2>Mcswazsting Hub</h2>
+    <nav>
+      <ul>
+        <li><a href="dashboard.html">Home</a></li>
+        <li><a href="#">Clients</a></li>
+        <li><a href="#">Reports</a></li>
+        <li><a href="#">AI Tools</a></li>
+        <li><a href="#">Settings</a></li>
+        <li><a href="index.html">Logout</a></li>
+      </ul>
+    </nav>
+  </aside>
 
-<h1>📊 Mcswazsting Hub Dashboard</h1>
+  <main class="main-content">
+    <h1>Welcome to Your Dashboard 🚀</h1>
+    <p>Manage your business, clients, and AI tools here.</p>
 
-<h2>AI Business Assistant</h2>
+    <section class="ai-panel">
+      <h2>AI Assistant</h2>
+      <textarea id="ai-input" placeholder="Ask the AI..."></textarea>
+      <button id="ai-send">Send</button>
+      <div id="ai-output"></div>
+    </section>
+  </main>
+</div>
 
-<textarea id="request" placeholder="Enter business task..."></textarea><br>
-<button onclick="sendRequest()">Run AI</button>
-
-<h3 id="response"></h3>
-
-<script>
-function sendRequest(){
-  fetch("/ai-service", {
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body: JSON.stringify({
-      request: request.value
-    })
-  }).then(res=>res.json()).then(data=>{
-    response.innerText = data.response;
-  });
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
