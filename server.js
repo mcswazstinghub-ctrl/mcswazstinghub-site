@@ -1,40 +1,46 @@
+// =============================
+// Mcswazsting Hub - Professional Server
+// =============================
+
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
 const app = express();
+
+// =============================
+// MIDDLEWARE
+// =============================
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(__dirname)); // serve HTML files
+app.use(express.static("public")); // serve frontend if needed
 
-// TEMP DATABASE (we will upgrade later)
-let users = [];
-
-// HOME ROUTE
+// =============================
+// HEALTH CHECK (FOR HOSTING)
+// =============================
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/index.html");
+    res.send("🚀 Mcswazsting Hub API is running...");
 });
 
-// DASHBOARD ROUTE
-app.get("/dashboard", (req, res) => {
-    res.sendFile(__dirname + "/dashboard.html");
-});
+// =============================
+// AUTH SYSTEM (BASIC)
+// =============================
+const users = [];
 
-// REGISTER USER
 app.post("/register", (req, res) => {
     const { email, password } = req.body;
 
-    if (!email || !password) {
-        return res.json({ message: "All fields required" });
+    const userExists = users.find(u => u.email === email);
+
+    if (userExists) {
+        return res.status(400).json({ message: "User already exists" });
     }
 
     users.push({ email, password });
-    console.log("New user:", email);
 
-    res.json({ message: "Account created successfully" });
+    res.json({ message: "User registered successfully" });
 });
 
-// LOGIN USER
 app.post("/login", (req, res) => {
     const { email, password } = req.body;
 
@@ -43,23 +49,46 @@ app.post("/login", (req, res) => {
     );
 
     if (!user) {
-        return res.json({ message: "Invalid login" });
+        return res.status(401).json({ message: "Invalid login credentials" });
     }
 
-    res.json({ message: "Login successful" });
-});
-
-// AI SERVICE ROUTE (YOUR BUSINESS CORE)
-app.post("/ai-service", (req, res) => {
-    const { request } = req.body;
-
-    console.log("Client request:", request);
-
     res.json({
-        response: "AI processed: " + request
+        message: "Login successful",
+        user: { email }
     });
 });
 
-app.listen(3000, () => {
-    console.log("🚀 Mcswazsting Hub Server running on port 3000");
+// =============================
+// AI SERVICE (BUSINESS CORE)
+// =============================
+app.post("/ai-service", (req, res) => {
+    const { request } = req.body;
+
+    if (!request) {
+        return res.status(400).json({ message: "Request is required" });
+    }
+
+    console.log("Client request:", request);
+
+    // Simulated AI response (replace with real API later)
+    res.json({
+        success: true,
+        response: `🤖 AI processed: ${request}`
+    });
+});
+
+// =============================
+// ERROR HANDLING
+// =============================
+app.use((req, res) => {
+    res.status(404).json({ message: "Route not found" });
+});
+
+// =============================
+// SERVER START
+// =============================
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`🚀 Mcswazsting Hub Server running on port ${PORT}`);
 });
