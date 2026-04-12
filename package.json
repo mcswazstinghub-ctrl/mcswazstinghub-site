@@ -1,13 +1,21 @@
 {
-  "name": "mcswazstinghub-site",
+  "name": "mcswazstinghub",
   "version": "1.0.0",
-  "description": "AI Business Hub",
+  "description": "Mcswazsting Hub - AI Powered Business Automation Platform",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
+  "keywords": [
+    "AI",
+    "business",
+    "automation",
+    "startup",
+    "saas"
+  ],
   "author": "Mcswazsting Hub",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
