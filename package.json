@@ -1,11 +1,16 @@
 {
-  "name": "mcswazstinghub",
+  "name": "mcswazstinghub-site",
   "version": "1.0.0",
+  "description": "AI Business Hub",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
+  "author": "Mcswazsting Hub",
+  "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
     "express": "^4.18.2"
   }
 }

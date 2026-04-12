@@ -1,21 +1,32 @@
-const express = require('express');
-const path = require('path');
+const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const path = require("path");
+
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// Serve static files from public
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static("public"));
 
-// Parse JSON requests
-app.use(express.json());
+// Routes
+app.post("/login", (req, res) => {
+    const { username, password } = req.body;
 
-// Example AI endpoint
-app.post('/ai-service', (req, res) => {
-    const { request } = req.body;
-    console.log('Client request:', request);
-    res.json({ response: `AI processed: ${request}` });
+    if (username === "admin" && password === "password") {
+        return res.json({ success: true, message: "Login successful" });
+    }
+    res.status(401).json({ success: false, message: "Invalid login" });
 });
 
+app.post("/ai-service", (req, res) => {
+    const { request } = req.body;
+    res.json({ response: "AI processed: " + request });
+});
+
+// Dynamic Port (IMPORTANT FOR DEPLOYMENT)
+const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log("🚀 Server running on port " + PORT);
 });

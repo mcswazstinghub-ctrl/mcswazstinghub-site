@@ -2,86 +2,20 @@
 <html>
 <head>
   <title>Mcswazsting Hub</title>
-  <style>
-    body {
-      font-family: Arial;
-      background: #0f172a;
-      color: white;
-      text-align: center;
-      margin: 0;
-    }
-    header {
-      padding: 20px;
-      background: #020617;
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .hero {
-      padding: 50px;
-    }
-    .btn {
-      padding: 10px 20px;
-      margin: 10px;
-      background: #22c55e;
-      border: none;
-      color: black;
-      cursor: pointer;
-    }
-    input {
-      padding: 10px;
-      margin: 5px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>🚀 Mcswazsting Hub</header>
+<h1>🚀 Mcswazsting Hub</h1>
+<p>AI Business Automation Platform</p>
 
-<div class="hero">
-  <h1>Global Business Management AI</h1>
-  <p>Automate your business, manage clients, and scale globally.</p>
+<form id="loginForm">
+  <input type="text" id="username" placeholder="Username"><br>
+  <input type="password" id="password" placeholder="Password"><br>
+  <button type="submit">Login</button>
+</form>
 
-  <h2>Register</h2>
-  <input id="regEmail" placeholder="Email"><br>
-  <input id="regPass" type="password" placeholder="Password"><br>
-  <button class="btn" onclick="register()">Register</button>
-
-  <h2>Login</h2>
-  <input id="logEmail" placeholder="Email"><br>
-  <input id="logPass" type="password" placeholder="Password"><br>
-  <button class="btn" onclick="login()">Login</button>
-</div>
-
-<script>
-function register() {
-  fetch("/register", {
-    method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({
-      email: regEmail.value,
-      password: regPass.value
-    })
-  }).then(res=>res.json()).then(data=>{
-    alert(data.message);
-  });
-}
-
-function login() {
-  fetch("/login", {
-    method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({
-      email: logEmail.value,
-      password: logPass.value
-    })
-  }).then(res=>res.json()).then(data=>{
-    alert(data.message);
-    if(data.message === "Login successful"){
-      window.location.href = "/dashboard";
-    }
-  });
-}
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
